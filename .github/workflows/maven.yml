@@ -60,7 +60,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./packaging/target/openrefine-win-${{ env.OR_VERSION }}.tar.gz
+        asset_path: ./packaging/target/openrefine-linux-${{ env.OR_VERSION }}.tar.gz
         asset_name: openrefine-linux-${{ env.OR_VERSION }}.tar.gz
         asset_content_type: application/tar+gzip
 
