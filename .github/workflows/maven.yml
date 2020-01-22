@@ -13,5 +13,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Build with Maven using .refine
-      run: ./refine build && ./refine dist 3.3.1
+    - name: Install genisoimage
+      run: sudo apt-get install genisoimage
+    - name: Build with Maven
+      run: ./refine build
+    - name: Generate dist files
+      run: ./refine dist 3.3.1
