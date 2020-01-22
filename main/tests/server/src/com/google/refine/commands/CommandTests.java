@@ -136,7 +136,7 @@ public class CommandTests extends RefineTest {
 
     @Test
     public void getEngineConfigReturnsNullWithEmptyOrBadParameterValue() {
-        when(request.getParameter("engine")).thenReturn("sdfasdfas");
+        when(request.getParameter("engine")).thenReturn("null");
 
         Assert.assertNull( SUT.wrapGetEngineConfig(request) );
 

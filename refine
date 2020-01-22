@@ -385,7 +385,7 @@ mvn() {
 dist() {
     get_version $1
     mvn_prepare
-    "$MVN" versions:set -DnewVersion="$VERSION"
+    "$MVN" versions:set -DnewVersion="$VERSION" -Dmaven.test.skip=true
     mvn package
 }
  
