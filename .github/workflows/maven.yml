@@ -34,12 +34,9 @@ jobs:
     - name: Generate dist files
       run: ./refine dist ${{ env.OR_VERSION }}
 
-    - name: Build Release Message
-      run: echo ::set-env name=API_JSON::$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' $env.OR_VERSION $env.OR_VERSION $env.OR_VERSION )
-
     - name: Create Release
       id: create_release
-      run: echo ::set-env name=API_RELEASE::$( curl --silent --data "$env.API_JSON" "https://api.github.com/repos/ernestorefinepro/OpenRefine-nightly-releases/releases?access_token=${{ secrets.GITHUB_TOKEN }}" | jq -r '.upload_url' )
+      run: echo ::set-env name=API_RELEASE::$( ./.github/workflows/release_manager.sh "${{ env.OR_VERSION }}" "${{ secrets.GITHUB_TOKEN }}" )
 
     - name: Upload Release Asset Windows
       id: upload-release-asset-win
