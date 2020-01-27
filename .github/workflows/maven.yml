@@ -36,7 +36,11 @@ jobs:
 
     - name: Create Release
       id: create_release
-      run: echo ::set-env name=API_RELEASE::$(./.github/workflows/release_manager.sh "${{ env.OR_VERSION }}" "${{ secrets.RELEASE_REPO_TOKEN }}")
+      run: echo ::set-env name=API_RELEASE::$(./.github/workflows/release_manager.sh)
+      env:
+        OR_VERSION: ${{ env.OR_VERSION }}
+        RELEASE_REPO_OWNER: ernestorefinepro
+        RELEASE_REPO_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
 
     - name: Upload Release Asset Windows
       id: upload-release-asset-win
