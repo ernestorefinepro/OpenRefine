@@ -35,11 +35,11 @@ jobs:
       run: ./refine dist ${{ env.OR_VERSION }}
 
     - name: Build Release Message
-      run: API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}'${{ env.OR_VERSION }} ${{ env.OR_VERSION }} ${{ env.OR_VERSION }})
+      run: echo ::set-env name=API_JSON::$(printf '{"tag_name": "%s","target_commitish": "master","name": "%s","body": "Release of version %s","draft": false,"prerelease": false}' $env.OR_VERSION $env.OR_VERSION $env.OR_VERSION )
 
     - name: Create Release
       id: create_release
-      run: API_RELEASE=$( curl --silent --data "$API_JSON" "https://api.github.com/repos/ernestorefinepro/OpenRefine-nightly-releases/releases?access_token=${{ secrets.GITHUB_TOKEN }}" | jq -r '.upload_url' )
+      run: echo ::set-env name=API_RELEASE::$( curl --silent --data "$env.API_JSON" "https://api.github.com/repos/ernestorefinepro/OpenRefine-nightly-releases/releases?access_token=${{ secrets.GITHUB_TOKEN }}" | jq -r '.upload_url' )
 
     - name: Upload Release Asset Windows
       id: upload-release-asset-win
@@ -47,7 +47,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ API_RELEASE }}
+        upload_url: ${{ env.API_RELEASE }}
         asset_path: ./packaging/target/openrefine-win-${{ env.OR_VERSION }}.zip
         asset_name: openrefine-win-${{ env.OR_VERSION }}.zip
         asset_content_type: application/zip
@@ -58,7 +58,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ API_RELEASE }}
+        upload_url: ${{ env.API_RELEASE }}
         asset_path: ./packaging/target/openrefine-linux-${{ env.OR_VERSION }}.tar.gz
         asset_name: openrefine-linux-${{ env.OR_VERSION }}.tar.gz
         asset_content_type: application/tar+gzip
@@ -69,7 +69,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ API_RELEASE }}
+        upload_url: ${{ env.API_RELEASE }}
         asset_path: ./packaging/target/openrefine-mac-${{ env.OR_VERSION }}.dmg
         asset_name: openrefine-mac-${{ env.OR_VERSION }}.dmg
         asset_content_type: application/x-apple-diskimage
