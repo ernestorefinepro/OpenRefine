@@ -42,7 +42,7 @@ jobs:
       id: upload-release-asset-win
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
       with:
         upload_url: ${{ env.API_RELEASE }}
         asset_path: ./packaging/target/openrefine-win-${{ env.OR_VERSION }}.zip
@@ -53,7 +53,7 @@ jobs:
       id: upload-release-asset-linux
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
       with:
         upload_url: ${{ env.API_RELEASE }}
         asset_path: ./packaging/target/openrefine-linux-${{ env.OR_VERSION }}.tar.gz
@@ -64,7 +64,7 @@ jobs:
       id: upload-release-asset-mac
       uses: actions/upload-release-asset@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
       with:
         upload_url: ${{ env.API_RELEASE }}
         asset_path: ./packaging/target/openrefine-mac-${{ env.OR_VERSION }}.dmg
